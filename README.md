@@ -19,7 +19,6 @@ cd estuary
 Running the command above will launch a docker image with the estuary node and return an `AUTH_KEY`
 
 ## Run Multiple shuttles
-
 ```
 cd estuary-shuttle
 ./run-shuttles.sh --num-of-shuttles 3 --estuary-api-key <Auth Token from run-main.sh> --estuary-host localhost:3004
