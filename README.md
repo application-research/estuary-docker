@@ -9,7 +9,8 @@ A simple automation script to run a main estuary node with several estuary shutt
 
 ## Component Diagram and How it works
 
-![image](https://user-images.githubusercontent.com/4479171/157354827-9dd254d3-8553-4cc7-9bfe-4dc6b6c1484f.png)
+![image](https://user-images.githubusercontent.com/4479171/157367382-d7e460c4-0c82-4a71-af5d-b5e1810d09c3.png)
+
 
 ## Run Estuary main
 ```
