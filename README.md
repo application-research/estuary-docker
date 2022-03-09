@@ -27,12 +27,15 @@ cd estuary-shuttle
 # sample: ./run-shuttles.sh --num-of-shuttles 3 --estuary-api-key ESTe2813e65-f177-4192-b601-1e55ca4e930bARY --estuary-host estuary-main:3004
 ```
 
+The command above will launch three containers with different handles and tokens, which will all connect to the estuary-main via `--estuary-host` flag
 ## Run estuary frontend 
 ```
 cd estuary-www
 ./run-www.sh --estuary-api-key <Auth Token from run-main.sh> --estuary-host estuary-main:3004
 # sample: ./run-www.sh --estuary-api-key EST6de30581-92bf-4e2d-a218-5233a456baa5ARY --estuary-host estuary-main:3004
 ```
+
+The frontend will be connected to the estuary-main.
 ## Test your setup
 
 ### Test adding/pinning a new object
@@ -50,4 +53,15 @@ curl -X GET http://localhost:3004/pinning/pins -H "Content-Type: application/jso
 
 ### Test Estuary frontend
 
-Go to [localhost:4444](localhost:4444)
+Go to [localhost:4444](localhost:4444) and login with your API key.
+
+## Running the entire setup using docker-compose
+```
+cd .
+docker compose build
+docker compose up
+```
+
+The above command will run a single estuary-main, a single estuary-shuttle and the frontend.
+
+
