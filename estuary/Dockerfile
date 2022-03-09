@@ -8,8 +8,8 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 RUN cargo --help
 RUN git clone https://github.com/application-research/estuary . && \
     RUSTFLAGS="-C target-cpu=native -g" FFI_BUILD_FROM_SOURCE=1 make all
-
-EXPOSE 3004
+    
 COPY start.sh /usr/src/estuary/start.sh
 RUN chmod +x /usr/src/estuary/start.sh
+EXPOSE 3004
 CMD /usr/src/estuary/start.sh

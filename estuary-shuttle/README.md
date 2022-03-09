@@ -8,26 +8,11 @@ Repository to containerized the main estuary node. This is to enable one-click d
 - docker
 - docker hub desktop (optional)
 
-## Build
+# Single Build, Tag, Push (Optional) and Run
 ```
-docker build .
+./build-tag-push.sh
 ```
-
-Get your image id
+# Single command run using docker
 ```
-docker images
-```
-## Tag
-```
-docker tag  <image> <org>/estuary-shuttle:<version>
-```
-
-## Push
-```
-docker push <org>/estuary-shuttle:<version>
-```
-
-## Running your local image
-```
-docker run <org>/estuary-shuttle:<version>
+./run-shuttles.sh --num-of-shuttles 3 --estuary-api-key EST890be289-a6fe-4fb5-a402-c2b895c644a0ARY --estuary-host 172.18.0.2:3004
 ```

@@ -7,32 +7,11 @@ Repository to containerized the main estuary node. This is to enable one-click d
 - docker
 - docker hub desktop (optional)
 
+# Single Build, Tag, Push (Optional) and Run
+```
+./build-tag-push.sh
+```
 # Single command run using docker
 ```
 ./run-main.sh
-```
-
-# Build, Tag, Push (Optional) and Run
-## Build
-```
-docker build .
-```
-
-Get your image id
-```
-docker images
-```
-## Tag
-```
-docker tag  <image> <org>/estuary:<version>
-```
-
-## Push
-```
-docker push <org>/estuary:<version>
-```
-
-## Running your local image
-```
-docker run <org>/estuary:<version>
 ```

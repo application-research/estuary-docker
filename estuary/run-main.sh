@@ -12,3 +12,7 @@ docker run --name "estuary" --net=estuary-local-net -d -p $PORT:$PORT $ORG_NAME/
 
 AUTH_KEY=$(docker exec -ti estuary ./estuary setup)
 echo $AUTH_KEY ## key this in on run-shuttles.sh 
+
+containerId=$(docker ps -aqf "name=estuary")
+ipAddress=$(docker inspect $containerId | jq -r .[0].NetworkSettings.Networks[].IPAddress)
+echo $ipAddress
