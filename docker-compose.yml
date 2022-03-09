@@ -1,0 +1,23 @@
+version: "3"
+services:
+  estuary-main:
+    build:
+      context: ./estuary
+      dockerfile: Dockerfile
+    image: estuary-main:latest
+    ports:
+      - 3004:3004
+  estuary-shuttle:
+    build:
+      context: ./estuary-shuttle
+      dockerfile: Dockerfile
+    image: estuary-shuttle:latest
+    ports:
+      - 3005:3005
+  estuary-www:
+    build:
+      context: ./estuary-www
+      dockerfile: Dockerfile
+    image: estuary-www:latest
+    ports:
+      - 4444:4444
