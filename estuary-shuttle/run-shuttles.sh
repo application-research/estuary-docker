@@ -20,7 +20,7 @@ fi
 
 SHUTTLE_COUNT=3
 ESTUARY_HOSTNAME=${ESTUARY_HOSTNAME:-localhost:3004}
-API_KEY=${API_KEY:-"ESTf4e7bc47-3c12-4440-b8cf-0e3bcb6738e3ARY"} ## get from main 
+API_KEY=${API_KEY:-""} ## get from main 
 
 # Process CLI parameters.
 while test $# -gt 0; do

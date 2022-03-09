@@ -9,7 +9,7 @@ Repository to containerized the main estuary node. This is to enable one-click d
 
 # Single command run using docker
 ```
-./one-command-run.sh
+./run-main.sh
 ```
 
 # Build, Tag, Push (Optional) and Run

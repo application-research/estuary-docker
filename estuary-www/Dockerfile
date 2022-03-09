@@ -10,4 +10,4 @@ RUN git clone https://github.com/application-research/estuary-www . && \
     sed -i "s|$TEMPLATE_HOSTNAME|$ESTUARY_HOSTNAME|g" /usr/src/estuary-www/common/constants.ts && \
     sed -i "s|ESTUARY_TOKEN|$ESTUARY_TOKEN|g" /usr/src/estuary-www/common/constants.ts && \
     npm run build
-CMD npm run start
+CMD npm run dev
