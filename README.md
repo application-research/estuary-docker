@@ -15,7 +15,7 @@ A  automation script to run a main estuary node, frontend and estuary shuttles.
 
 ## Run estuary-main
 ```
-cd estuary
+cd estuary-main
 ./run-main.sh
 ```
 Running the command above will launch a docker image with the estuary node and return an `Auth Token`
@@ -33,9 +33,6 @@ cd estuary-www
 ./run-www.sh --estuary-api-key <Auth Token from run-main.sh> --estuary-host estuary-main:3004
 # sample: ./run-www.sh --estuary-api-key EST6de30581-92bf-4e2d-a218-5233a456baa5ARY --estuary-host estuary-main:3004
 ```
-
-Go to [localhost:4444](localhost:4444)
-
 ## Test your setup
 
 ### Test adding/pinning a new object
@@ -50,3 +47,7 @@ curl -X POST http://localhost:3004/pinning/pins -d '{ "name": "1882818-2021-natu
 ## estuary-main:3004 or localhost:3004
 curl -X GET http://localhost:3004/pinning/pins -H "Content-Type: application/json" -H "Authorization: Bearer <Auth Token>"
 ```
+
+### Test Estuary frontend
+
+Go to [localhost:4444](localhost:4444)
