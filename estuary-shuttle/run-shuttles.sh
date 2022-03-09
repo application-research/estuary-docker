@@ -79,6 +79,6 @@ do
     echo "ESTUARY_SHUTTLE_TOKEN: $token"
     echo "ESTUARY_SHUTTLE_HANDLE: $handle"
     echo "============================================"
-    docker run --net=estuary-local-net --env DEVENV=true --env ESTUARY_HOSTNAME=$ESTUARY_HOSTNAME --env ESTUARY_SHUTTLE_TOKEN=$ESTUARY_SHUTTLE_TOKEN --env ESTUARY_SHUTTLE_HANDLE=$ESTUARY_SHUTTLE_HANDLE -d -p $PORT:$PORT $ORG_NAME/$TAG_NAME
+    docker run --net=estuary-local-net --env DEVENV=true --dns=8.8.8.8 --env ESTUARY_HOSTNAME=$ESTUARY_HOSTNAME --env ESTUARY_SHUTTLE_TOKEN=$ESTUARY_SHUTTLE_TOKEN --env ESTUARY_SHUTTLE_HANDLE=$ESTUARY_SHUTTLE_HANDLE -d -p $PORT:$PORT $ORG_NAME/$TAG_NAME
     PORT=$((PORT+1))
 done

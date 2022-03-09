@@ -22,15 +22,15 @@ Running the command above will launch a docker image with the estuary node and r
 ## Run multiple estuary-shuttles
 ```
 cd estuary-shuttle
-./run-shuttles.sh --num-of-shuttles 3 --estuary-api-key <Auth Token from run-main.sh> --estuary-host 172.18.0.2:3004
-# sample: ./run-shuttles.sh --num-of-shuttles 3 --estuary-api-key EST890be289-a6fe-4fb5-a402-c2b895c644a0ARY --estuary-host 172.18.0.2:3004
+./run-shuttles.sh --num-of-shuttles 3 --estuary-api-key <Auth Token from run-main.sh> --estuary-host localhost:3004
+# sample: ./run-shuttles.sh --num-of-shuttles 3 --estuary-api-key EST890be289-a6fe-4fb5-a402-c2b895c644a0ARY --estuary-host localhost:3004
 ```
 
 ## Run estuary frontend 
 ```
 cd estuary-www
 ./run-www.sh --estuary-api-key <Auth Token from run-main.sh> --estuary-host localhost:3004
-# sample: ./run-www.sh --estuary-api-key EST890be289-a6fe-4fb5-a402-c2b895c644a0ARY --estuary-host 172.18.0.2:3004
+# sample: ./run-www.sh --estuary-api-key EST890be289-a6fe-4fb5-a402-c2b895c644a0ARY --estuary-host localhost:3004
 ```
 
 Go to [localhost:4444](localhost:4444)
