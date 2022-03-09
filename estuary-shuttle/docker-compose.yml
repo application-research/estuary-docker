@@ -1,0 +1,13 @@
+version: "3"
+services:
+  estuary-shuttle:
+    build:
+      context: ./estuary-shuttle
+      dockerfile: Dockerfile
+    image: estuary-shuttle:latest
+    ports:
+      - 3005:3005
+    depends_on:
+      - estuary-main
+    env_file:
+      - ./.env

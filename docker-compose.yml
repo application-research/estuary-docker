@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   estuary-main:
     build:
       context: ./estuary
@@ -7,6 +8,8 @@ services:
     image: estuary-main:latest
     ports:
       - 3004:3004
+    env_file:
+      - ./.env 
   estuary-shuttle:
     build:
       context: ./estuary-shuttle
@@ -14,10 +17,24 @@ services:
     image: estuary-shuttle:latest
     ports:
       - 3005:3005
+    depends_on:
+      - estuary-main
+    env_file:
+      - ./.env
   estuary-www:
     build:
       context: ./estuary-www
       dockerfile: Dockerfile
-    image: estuary-www:latest
+      args:
+        - ESTUARY_HOSTNAME=estuary-main:3004
+        - ESTUARY_TOKEN=${ESTUARY_TOKEN}
     ports:
       - 4444:4444
+    depends_on:
+      - estuary-main
+    env_file:
+      - ./.env
+networks: 
+  default: 
+    external: 
+      name: estuary-local-net 

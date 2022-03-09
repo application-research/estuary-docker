@@ -1,6 +1,7 @@
 #/bin/bash
 FULLNODE_API_INFO=$FULLNODE_API_INFO
 ESTUARY_HOSTNAME=$ESTUARY_HOSTNAME
+
 if [ -z "$FULLNODE_API_INFO" ]; then
     echo "FULLNODE_API_INFO is empty, use default value"
     FULLNODE_API_INFO="wss://api.chain.love"
@@ -19,3 +20,9 @@ else
     mkdir -p /usr/src/estuary/data
     /usr/src/estuary/estuary --hostname $ESTUARY_HOSTNAME setup 
 fi
+
+AUTH_KEY=$(/usr/src/estuary/estuary $ESTUARY_HOSTNAME setup)
+ESTUARY_TOKEN=$AUTH_KEY
+echo $ESTUARY_TOKEN
+
+sed -i "s|PESTUARY_TOKEN|$ESTUARY_TOKEN|g" ./env

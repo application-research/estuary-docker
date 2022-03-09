@@ -20,7 +20,13 @@ fi
 
 SHUTTLE_COUNT=3
 ESTUARY_HOSTNAME=${ESTUARY_HOSTNAME:-localhost:3004}
+ESTUARY_HOSTNAME_LOCAL=${ESTUARY_HOSTNAME_LOCAL:-localhost:3004}
+ESTUARY_HOSTNAME_DOCKER=${ESTUARY_HOSTNAME_DOCKER:-estuary-main:3004}
 API_KEY=${API_KEY:-""} ## get from main 
+ORG_NAME=alvinpai
+TAG_NAME=estuary-shuttle:latest
+PORT=3005
+SHUTTLE_COUNT=3
 
 # Process CLI parameters.
 while test $# -gt 0; do
@@ -55,10 +61,7 @@ while test $# -gt 0; do
   esac
 done
 
-ORG_NAME=alvinpai
-TAG_NAME=estuary-shuttle:latest
-PORT=3005
-SHUTTLE_COUNT=3
+
 
 ## Environment Variables.
 docker pull $ORG_NAME/$TAG_NAME
@@ -66,7 +69,7 @@ docker pull $ORG_NAME/$TAG_NAME
 for ((n=0;n<$SHUTTLE_COUNT;n++))
 do
     echo $i
-    genKey=$(curl -H "Authorization: Bearer $API_KEY" -X POST $ESTUARY_HOSTNAME/admin/shuttle/init)
+    genKey=$(curl -H "Authorization: Bearer $API_KEY" -X POST $ESTUARY_HOSTNAME_LOCAL/admin/shuttle/init)
     handle=$(echo $genKey | jq '.handle')
     token=$(echo $genKey | jq '.token')
 

@@ -1,0 +1,19 @@
+version: "3"
+services:
+  estuary-www:
+    build:
+      context: ./estuary-www
+      dockerfile: Dockerfile
+      args:
+        - ESTUARY_HOSTNAME=estuary-main:3004
+        - ESTUARY_TOKEN=${ESTUARY_TOKEN}
+    ports:
+      - 4444:4444
+    depends_on:
+      - estuary-main
+    env_file:
+      - ./.env
+networks: 
+  default: 
+    external: 
+      name: estuary-local-net 
