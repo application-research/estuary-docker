@@ -1,0 +1,19 @@
+#/bin/bash
+
+ORG_NAME=alvinpai
+TAG_NAME=estuary-shuttle:latest
+PORT=3005
+
+## Environment Variables
+ESTUARY_HOSTNAME=${ESTUARY_HOSTNAME:-localhost:3004}
+
+## Automatic Shuttle creation given an estuary host name
+ESTUARY_SHUTTLE_TOKEN=${ESTUARY_SHUTTLE_TOKEN:-"SECRET0eca84a8-708c-4745-b458-78ff94783c56SECRET"}
+ESTUARY_SHUTTLE_HANDLE=${ESTUARY_SHUTTLE_HANDLE:-"SHUTTLEac3db5dc-408f-4cd5-aea8-22b39eb1429aHANDLE"}
+
+## Assign Ports (+++)
+docker pull $ORG_NAME/$TAG_NAME
+docker run --env DEVENV=true --env ESTUARY_HOSTNAME=$ESTUARY_HOSTNAME --env ESTUARY_SHUTTLE_TOKEN=$ESTUARY_SHUTTLE_TOKEN --env ESTUARY_SHUTTLE_HANDLE=$ESTUARY_SHUTTLE_HANDLE -d -p $PORT:$PORT $ORG_NAME/$TAG_NAME 
+
+
+sleep 3
