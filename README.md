@@ -11,7 +11,8 @@ A  automation script to run a main estuary node, frontend and estuary shuttles.
 
 ## Component Diagram and How it works
 
-![image](https://user-images.githubusercontent.com/4479171/157367382-d7e460c4-0c82-4a71-af5d-b5e1810d09c3.png)
+![image](https://user-images.githubusercontent.com/4479171/157783874-9186f9d3-512c-4c82-9a85-9cfc8cd65fd3.png)
+
 
 ## Run estuary-main
 ```
