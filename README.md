@@ -56,13 +56,3 @@ curl -X GET http://localhost:3004/pinning/pins -H "Content-Type: application/jso
 
 Go to [localhost:4444](localhost:4444) and login with your API key.
 
-## Running the entire setup using docker-compose
-```
-cd .
-docker compose build
-docker compose up
-```
-
-The above command will run a single estuary-main, a single estuary-shuttle and the frontend.
-
-
