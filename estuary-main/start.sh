@@ -14,15 +14,17 @@ AUTH_FILE=/usr/src/estuary/data/setup.log
 FILE=/usr/src/estuary/data/estuary.db
 if test -f "$FILE"; then
     echo "$FILE exists."
-    /usr/src/estuary/estuary --hostname $ESTUARY_HOSTNAME --fullnode-api $FULLNODE_API_INFO
+    /usr/src/estuary/estuary --hostname $ESTUARY_HOSTNAME
 else
     echo "$FILE does not exist."
     mkdir -p /usr/src/estuary/data
-    /usr/src/estuary/estuary --hostname $ESTUARY_HOSTNAME setup 
+    AUTH_KEY=$(/usr/src/estuary/estuary setup | grep Token | cut -d ' ' -f 3)
+    echo $AUTH_KEY
+    echo $AUTH_KEY > /usr/estuary/private/token
+    cat /usr/estuary/private/token
 fi
 
-AUTH_KEY=$(/usr/src/estuary/estuary $ESTUARY_HOSTNAME setup)
-ESTUARY_TOKEN=$AUTH_KEY
-echo $ESTUARY_TOKEN
+#sed -i "s|PESTUARY_TOKEN|$ESTUARY_TOKEN|g" ./env
+#/usr/src/estuary/estuary
 
-sed -i "s|PESTUARY_TOKEN|$ESTUARY_TOKEN|g" ./env
+/usr/src/estuary/estuary $ESTUARY_HOSTNAME

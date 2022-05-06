@@ -1,0 +1,17 @@
+version: "3"
+services:
+
+  lotus:
+    network_mode: host
+    build:
+      context: ./lotus
+      dockerfile: Dockerfile
+
+  lotus-miner:
+    build:
+      context: ./lotus-miner
+      dockerfile: Dockerfile
+
+networks: 
+  default: 
+    name: estuary-local-net 
