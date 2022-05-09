@@ -22,6 +22,9 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - estuary-main
+    ports:
+      - "3005:3005"
+      - "3005:3005/udp"
     environment:
       - ESTUARY_HOSTNAME=estuary-main:3004
     volumes:
