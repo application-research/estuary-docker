@@ -14,6 +14,27 @@ A  automation script to run a main estuary node, frontend and estuary shuttles.
 ![image](https://user-images.githubusercontent.com/4479171/157783874-9186f9d3-512c-4c82-9a85-9cfc8cd65fd3.png)
 
 
+## Run a Local Estuary, Shuttle and Website with docker-compose
+
+1. Create a local dns mapping in `/etc/hosts`
+
+```
+127.0.0.1 estuary-main
+```
+
+For users using linux shell, you can also run the following script to add the host (you'll be prompt with your machine/local password).
+
+```
+sudo -- sh -c -e "echo '\n127.0.0.1   estuary-main' >> /etc/hosts";
+```
+
+2. Start up the stack with `docker-compose`
+```
+docker-compose up
+```
+
+3. Navigate to `http://estuary-main:4444`
+
 ## Run estuary-main
 ```
 cd estuary-main

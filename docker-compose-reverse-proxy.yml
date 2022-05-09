@@ -1,5 +1,22 @@
 version: "3"
+
 services:
+
+  nginx:
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    image: nginx:1.21-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./reverse-proxy/data:/etc/nginx/conf.d
+      - ./certs:/etc/certs
+    depends_on:
+      - estuary-main
+      - estuary-shuttle
+      - estuary-www
+    restart: always
+
   estuary-main:
     build:
       context: ./estuary-main
@@ -11,20 +28,17 @@ services:
       - ESTUARY_DATADIR=/usr/src/estuary/data/
       - ESTUARY_API_LISTEN=0.0.0.0:3004
       - FULLNODE_API_INFO=wss://api.chain.love
-      - ESTUARY_HOSTNAME=http://estuary-main:3004
+      - ESTUARY_HOSTNAME=https://api.myfiles.host:3004
     ports:
       - "3004:3004"
       - "3004:3004/udp"
-  
+
   estuary-shuttle:
     build:
       context: ./estuary-shuttle
       dockerfile: Dockerfile
     depends_on:
       - estuary-main
-    ports:
-      - "3005:3005"
-      - "3005:3005/udp"
     environment:
       - ESTUARY_HOSTNAME=estuary-main:3004
     volumes:
@@ -34,8 +48,10 @@ services:
     build:
       context: ./estuary-www
       dockerfile: Dockerfile
+      args:
+        ESTUARY_HOSTNAME: api.myfiles.host
     environment:
-      - ESTUARY_API=http://estuary-main:3004
+      - ESTUARY_API=https://api.myfiles.host
     ports:
       - "4444:4444"
     depends_on:
@@ -43,5 +59,22 @@ services:
     volumes:
       - estuary:/usr/estuary/private
     
+
+  #lotus-devnet:
+  #  image: textile/lotus-devnet
+  #  environment:
+  #    - TEXLOTUSDEVNET_SPEED=1500
+
+  #lotus:
+  #  network_mode: host
+  #  build:
+  #    context: ./lotus
+  #    dockerfile: Dockerfile
+
+  #lotus-miner:
+  #  build:
+  #    context: ./lotus-miner
+  #    dockerfile: Dockerfile
+
 volumes:
   estuary: 
