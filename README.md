@@ -22,6 +22,12 @@ A  automation script to run a main estuary node, frontend and estuary shuttles.
 127.0.0.1 estuary-main
 ```
 
+For users using linux shell, you can also run the following script to add the host (you'll be prompt with your machine/local password).
+
+```
+sudo -- sh -c -e "echo '\n127.0.0.1   estuary-main' >> /etc/hosts";
+```
+
 2. Start up the stack with `docker-compose`
 ```
 docker-compose up
