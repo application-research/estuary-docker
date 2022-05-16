@@ -33,7 +33,18 @@ sudo -- sh -c -e "echo '\n127.0.0.1   estuary-main' >> /etc/hosts";
 docker-compose up
 ```
 
-3. Navigate to `http://estuary-main:4444`
+3. Capture the AuthToken (Estuary Token) from the output:
+
+```
+...
+estuary-shuttle_1  | Hostname: estuary-main:3004
+estuary-shuttle_1  | Shuttle Token: SECRETf5487ef1-0393-42df-a3bb-516416af8a0bSECRET
+estuary-shuttle_1  | Shuttle Handle: SHUTTLEf80a12ca-502d-4cdc-a282-830dbe0c6acbHANDLE
+estuary-shuttle_1  | Estuary Token: ESTf469c66f-9e15-4a67-bba9-a97bedfa0352ARY
+...
+```
+
+4. Navigate to `http://estuary-main:4444` and login with the AuthToken captured in the previous step.
 
 ## Run estuary-main
 ```
