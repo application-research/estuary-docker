@@ -10,11 +10,15 @@ services:
       - ESTUARY_DATABASE=sqlite=/usr/src/estuary/data/estuary.db
       - ESTUARY_DATADIR=/usr/src/estuary/data/
       - ESTUARY_API_LISTEN=0.0.0.0:3004
-      - FULLNODE_API_INFO=wss://api.chain.love
+      - FULLNODE_API_INFO=ws://lotus-node:1234
       - ESTUARY_HOSTNAME=http://estuary-main:3004
+      - ESTUARY_USER=test
+      - ESTUARY_PASSWORD=MyPassword123
     ports:
       - "3004:3004"
       - "3004:3004/udp"
+    depends_on:
+      - lotus-node
   
   estuary-shuttle:
     build:
@@ -43,5 +47,14 @@ services:
     volumes:
       - estuary:/usr/estuary/private
     
+  lotus-node:
+    build:
+      context: ./lotus
+      dockerfile: Dockerfile
+
 volumes:
-  estuary: 
+  estuary:
+
+networks: 
+  default: 
+    name: estuary-local-net

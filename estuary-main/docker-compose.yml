@@ -1,6 +1,5 @@
 version: "3"
 services:
-
   estuary-main:
     build:
       context: ./estuary
@@ -13,4 +12,4 @@ services:
 networks: 
   default: 
     external: 
-      name: estuary-local-net 
+      name: estuary-local-net

@@ -1,16 +1,16 @@
 version: "3"
 services:
 
-  lotus:
+  lotus-node:
     network_mode: host
     build:
       context: ./lotus
       dockerfile: Dockerfile
 
-  lotus-miner:
-    build:
-      context: ./lotus-miner
-      dockerfile: Dockerfile
+  #lotus-miner:
+  #  build:
+  #    context: ./lotus-miner
+  #    dockerfile: Dockerfile
 
 networks: 
   default: 

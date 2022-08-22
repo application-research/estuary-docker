@@ -1,6 +1,9 @@
 #/bin/bash
+sleep 20
 FULLNODE_API_INFO=$FULLNODE_API_INFO
 ESTUARY_HOSTNAME=$ESTUARY_HOSTNAME
+
+echo $ESTUARY_USER $ESTUARY_PASSWORD
 
 if [ -z "$FULLNODE_API_INFO" ]; then
     echo "FULLNODE_API_INFO is empty, use default value"
@@ -18,7 +21,7 @@ if test -f "$FILE"; then
 else
     echo "$FILE does not exist."
     mkdir -p /usr/src/estuary/data
-    AUTH_KEY=$(/usr/src/estuary/estuary setup | grep Token | cut -d ' ' -f 3)
+    AUTH_KEY=$(/usr/src/estuary/estuary setup --username=$ESTUARY_USER --password=$ESTUARY_PASSWORD | grep Token | cut -d ' ' -f 3)
     echo $AUTH_KEY
     echo $AUTH_KEY > /usr/estuary/private/token
     cat /usr/estuary/private/token
