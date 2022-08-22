@@ -18,7 +18,7 @@ if test -f "$FILE"; then
 else
     echo "$FILE does not exist."
     mkdir -p /usr/src/estuary/data
-    AUTH_KEY=$(/usr/src/estuary/estuary setup | grep Token | cut -d ' ' -f 3)
+    AUTH_KEY=$(/usr/src/estuary/estuary setup --username admin --password Password123 | grep Token | cut -d ' ' -f 3)
     echo $AUTH_KEY
     echo $AUTH_KEY > /usr/estuary/private/token
     cat /usr/estuary/private/token
