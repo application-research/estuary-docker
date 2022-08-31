@@ -47,7 +47,7 @@ done
 
 ORG_NAME=alvinpai
 TAG_NAME=estuary-www:latest
-PORT=4444
+PORT=4443
 
 docker pull $ORG_NAME/$TAG_NAME
 docker run --name "estuary-www" --net=estuary-local-net --dns=8.8.8.8 --env ESTUARY_HOSTNAME=$ESTUARY_HOSTNAME --env ESTUARY_TOKEN=$API_KEY -d -p $PORT:$PORT $ORG_NAME/$TAG_NAME 

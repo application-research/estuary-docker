@@ -1,4 +1,5 @@
 FROM golang:1.16.11-stretch as builder
+# note (al): Should we update this to a newer version ^^ ?
 
 RUN apt update && \
     apt install -y wget jq hwloc ocl-icd-opencl-dev git libhwloc-dev pkg-config make  && \

@@ -10,6 +10,7 @@ docker network create estuary-local-net
 
 docker run --name "estuary-main" --net=estuary-local-net --dns=8.8.8.8 -d -p $PORT:$PORT $ORG_NAME/$TAG_NAME 
 
+# note (al): Isn't this setup pattern deprecated?
 AUTH_KEY=$(docker exec -ti estuary-main ./estuary setup)
 echo $AUTH_KEY
 

@@ -1,0 +1,48 @@
+version: "3"
+services:
+  estuary-main:
+    build:
+      context: ./estuary-main
+      dockerfile: Dockerfile
+    volumes:
+      - estuary:/usr/estuary/private # Note (al): is this right?
+    environment:
+      - ESTUARY_DATABASE=sqlite=/usr/src/estuary/data/estuary.db
+      - ESTUARY_DATADIR=/usr/src/estuary/data/
+      - ESTUARY_API_LISTEN=0.0.0.0:3004
+      - FULLNODE_API_INFO=wss://api.chain.love
+      - ESTUARY_HOSTNAME=http://estuary-main:3004
+    ports:
+      - "3004:3004"
+      - "3004:3004/udp"
+  
+  estuary-shuttle:
+    build:
+      context: ./estuary-shuttle
+      dockerfile: Dockerfile
+    depends_on:
+      - estuary-main
+    ports:
+      - "3005:3005"
+      - "3005:3005/udp"
+    environment:
+      - ESTUARY_HOSTNAME=estuary-main:3004
+    volumes:
+      - estuary:/usr/estuary/private
+
+#  Note (al): We're planning on hosting this on Vercel, so no reason for this to be included in docker-compose
+#  estuary-www:
+#    build:
+#      context: ./estuary-www
+#      dockerfile: Dockerfile
+#    environment:
+#      - ESTUARY_API=http://estuary-main:3004
+#    ports:
+#      - "4443:4443"
+#    depends_on:
+#      - estuary-main
+#    volumes:
+#      - estuary:/usr/estuary/private
+
+volumes:
+  estuary: 
