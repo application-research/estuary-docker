@@ -1,32 +1,36 @@
-#/bin/bash
-FULLNODE_API_INFO=$FULLNODE_API_INFO
-ESTUARY_HOSTNAME=$ESTUARY_HOSTNAME
+#!/bin/bash
 
-if [ -z "$FULLNODE_API_INFO" ]; then
-    echo "FULLNODE_API_INFO is empty, use default value"
-    FULLNODE_API_INFO="wss://api.chain.love"
-fi
+#This is the script that is run when the docker container is started.
+# Please see the Dockerfile for more information on the context of this script.
+WORKDIR=/app
 
-echo "HOSTNAME: $ESTUARY_HOSTNAME"
+echo "WORKDIR: $WORKDIR"
+echo "HOSTNAME: $ESTUARY_MAIN_HOSTNAME"
+echo "FRONTEND: $ESTUARY_WWW_HOSTNAME"
 echo "FULLNODE_API_INFO: $FULLNODE_API_INFO"
 
-AUTH_FILE=/usr/src/estuary/data/setup.log
-FILE=/usr/src/estuary/data/estuary.db
-if test -f "$FILE"; then
-    echo "$FILE exists."
-    /usr/src/estuary/estuary --hostname $ESTUARY_HOSTNAME
-else
-    echo "$FILE does not exist."
-    mkdir -p /usr/src/estuary/data
-    # note (al): Pretty sure this has changed since our last commit
-    # AUTH_KEY=$(/usr/src/estuary/estuary setup --username admin --password Password123 | grep Token | cut -d ' ' -f 3)
-    AUTH_KEY=$(/usr/src/estuary/estuary setup --username=admin | grep Token | cut -d ' ' -f 3)
-    echo $AUTH_KEY
-    echo $AUTH_KEY > /usr/estuary/private/token
-    cat /usr/estuary/private/token
+DB_DIR=$WORKDIR/data/
+DB_FILE=$DB_DIR/estuary.db
+if test ! -f "$DB_FILE"; then
+  echo "Initializng Estuary Node"
+
+  # This is needed to make sure we dont get 'too many open files' errors
+  ulimit -n 10000
+
+  # Initialize directories for our data and secrets
+  mkdir -p "$DB_DIR"
+  mkdir -p "$WORKDIR"/private
+
+  # TODO: Implement Postgres
+  ESTUARY_TOKEN=$("$WORKDIR"/estuary setup --username=admin | grep Token | cut -d ' ' -f 3)
+  echo "$ESTUARY_TOKEN" > $WORKDIR/private/token
+  echo "Estuary Admin Key: $ESTUARY_TOKEN"
 fi
 
-#sed -i "s|PESTUARY_TOKEN|$ESTUARY_TOKEN|g" ./env
-#/usr/src/estuary/estuary
+# Start the Estuary node
+# --datadir : Where the Node stores data
+# --front-end-hostname: Where the front end is being served
 
-/usr/src/estuary/estuary $ESTUARY_HOSTNAME
+$WORKDIR/estuary \
+  --datadir="$DB_DIR" \
+  --front-end-hostname="$ESTUARY_WWW_HOSTNAME"
