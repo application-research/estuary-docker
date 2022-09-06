@@ -1,5 +1,6 @@
 version: "3.7"
 services:
+  # Our Reverse Proxy service for LoadBalancing and CORs
   reverse-proxy:
     # Pull the latest version of the reverse-proxy service
     image: ${ORG_NAME}/${ESTUARY_REVERSE_PROXY_TAGNAME}
@@ -8,12 +9,59 @@ services:
       - "443:443"
     depends_on:
       - estuary-main
-
+    networks:
+      - frontend
+  # Our main service
   estuary-main:
     # Pull the latest version of the estuary-main service
     image: ${ORG_NAME}/${ESTUARY_MAIN_TAGNAME}
+    # Set the environment variables for our startup script
+    environment:
+      # Our Estuary Deployment Configuration
+      - ESTUARY_MAIN_HOSTNAME=${ESTUARY_MAIN_HOSTNAME}  # Where we are running (localhost most likely)
+      - ESTUARY_WWW_HOSTNAME=${ESTUARY_WWW_HOSTNAME}  # Where our front end is running (localhost by default)
+      - FULLNODE_API=${FULLNODE_API}  # Where our full Lotus node is running
+      # PostgresSQL connection vars
+      - DB_TYPE=postgres  # We are using postgres
+      - DB_HOST=db  # The hostname of our database service
+      - DB_PORT=5432  # The port of our database service (default postgres port)
+      - DB_USER=${POSTGRES_USER}  # The username of our database service
+      - DB_PASSWORD=${POSTGRES_PASSWORD}  # The password of our database service
+      - DB_NAME=estuary  # The name of our database
     ports:
       - "3004:3004"
       - "3004:3004/udp"
+    volumes:
+      - estuary-data:/mnt/
+    # This depends on the database service,
+    depends_on:
+      - db
+    networks:
+      - backend
+      - frontend
+    # but we (also) need to wait for it to be ready
+    # Remember to reference our the backend db correctly if you change its configuration
+    command: ["./wait-for-it.sh", "db:5432", "--timeout=5", "--", "/app/start.sh"]
+  # And finally our Postgres Backend
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=estuary  # The name of our database
+    ports:
+      - '5432:5432'
+    volumes:
+      - estuary-db:/var/lib/postgresql/data
+    networks:
+      - backend
 volumes:
-  estuary:
+  # Our volume for our Blockstore
+  estuary-data:
+  # Our volume for our Postgres backend
+  estuary-db:
+    driver: local
+networks:
+  frontend:
+  backend:

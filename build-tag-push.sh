@@ -1,13 +1,11 @@
 #!/bin/bash
 
-# Source our deployment environment
+# Source our deployment environment (if any)
 source .env
 
 # Build, tag, and push our relevant Docker Images
 
 # Build Estuary Main
-
-# TODO: Build with args
 docker build -t "$ORG_NAME/$ESTUARY_MAIN_TAGNAME" ./estuary-main
 docker push "$ORG_NAME/$ESTUARY_MAIN_TAGNAME"
 

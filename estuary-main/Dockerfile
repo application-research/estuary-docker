@@ -10,6 +10,7 @@ ARG arg_fullnode_api=ws://api.chain.love
 ARG arg_workdir=/app
 
 # Env Variables for the Builds
+# Note (al): If using a docker composition, those settings take precedence!
 
 # Let the container know where its working directory is.
 ENV WORKDIR=$arg_workdir
@@ -35,11 +36,13 @@ RUN cargo --help
 RUN git clone https://github.com/banyancomputer/estuary . && \
     RUSTFLAGS="-C target-cpu=native -g" FFI_BUILD_FROM_SOURCE=1 make all
 
+# Initialize our Waiting Script
+COPY ./wait-for-it.sh /app/wait-for-it.sh
+RUN chmod +x /app/wait-for-it.sh
+
 # Initialize our Statup Script
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
 # Expose the Container on port 3004
 EXPOSE 3004
-
-CMD /app/start.sh
