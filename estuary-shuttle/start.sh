@@ -1,5 +1,14 @@
 #/bin/bash
-ESTUARY_TOKEN=$(cat /usr/estuary/private/token)
+token_file=/usr/estuary/private/token)
+while [ ! -f $token_file ]
+do
+  echo token file $token_file not found, sleeping 15s then retrying
+  sleep 15
+done
+ESTUARY_TOKEN=$(cat $token_file)
+
+
+
 FILE=/usr/src/estuary/data/estuary-shuttle.db
 if test -f "$FILE"; then
     echo "$FILE exists."
