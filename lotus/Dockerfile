@@ -1,4 +1,4 @@
-FROM golang:1.16.11-stretch as builder
+FROM golang:1.17 as builder
 
 RUN apt update && \
     apt install -y wget jq hwloc ocl-icd-opencl-dev git libhwloc-dev pkg-config make  && \
