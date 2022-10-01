@@ -13,6 +13,7 @@ RUN git clone https://github.com/application-research/estuary . && \
     
 COPY start.sh /usr/src/estuary/start.sh
 RUN chmod +x /usr/src/estuary/start.sh
+RUN cp /usr/src/estuary/estuary-shuttle /usr/estuary-bin/ # for the shuttle shared volume
 
 #ENV ESTUARY_TOKEN=$(/usr/src/estuary/start.sh)
 #RUN echo Estuary Token is ${ESTUARY_TOKEN}

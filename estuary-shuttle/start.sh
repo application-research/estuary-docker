@@ -17,5 +17,5 @@ echo "Shuttle Token: $ESTUARY_SHUTTLE_TOKEN"
 echo "Shuttle Handle: $ESTUARY_SHUTTLE_HANDLE"
 echo "Estuary Token: $ESTUARY_TOKEN"
 
-/usr/src/estuary-shuttle/estuary-shuttle --dev --estuary-api=$ESTUARY_HOSTNAME --auth-token=$ESTUARY_SHUTTLE_TOKEN --handle=$ESTUARY_SHUTTLE_HANDLE
+/usr/estuary-bin/estuary-shuttle --dev --estuary-api=$ESTUARY_HOSTNAME --auth-token=$ESTUARY_SHUTTLE_TOKEN --handle=$ESTUARY_SHUTTLE_HANDLE
 # tail -f /dev/null

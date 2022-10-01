@@ -6,8 +6,6 @@ WORKDIR /usr/src/estuary-shuttle
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN cargo --help
-RUN git clone https://github.com/application-research/estuary . && \
-    RUSTFLAGS="-C target-cpu=native -g" FFI_BUILD_FROM_SOURCE=1 make all
 
 COPY start.sh /usr/src/estuary-shuttle/start.sh
 RUN chmod +x /usr/src/estuary-shuttle/start.sh
