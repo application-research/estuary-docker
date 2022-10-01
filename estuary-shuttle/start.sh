@@ -1,5 +1,5 @@
 #/bin/bash
-token_file=/usr/estuary/private/token)
+token_file=/usr/estuary/private/token
 while [ ! -f $token_file ]
 do
   echo token file $token_file not found, sleeping 15s then retrying
