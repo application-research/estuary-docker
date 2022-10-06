@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - estuary:/usr/estuary/private
+      - estuary-bin:/usr/estuary-bin/
     environment:
       - ESTUARY_DATABASE=sqlite=/usr/src/estuary/data/estuary.db
       - ESTUARY_DATADIR=/usr/src/estuary/data/
@@ -17,17 +18,18 @@ services:
       - "3004:3004/udp"
   
   estuary-shuttle:
+    depends_on:
+      - estuary-main
     build:
       context: ./estuary-shuttle
       dockerfile: Dockerfile
-    depends_on:
-      - estuary-main
     ports:
       - "3005:3005"
       - "3005:3005/udp"
     environment:
       - ESTUARY_HOSTNAME=estuary-main:3004
     volumes:
+      - estuary-bin:/usr/estuary-bin/
       - estuary:/usr/estuary/private
   
   estuary-www:
@@ -45,3 +47,4 @@ services:
     
 volumes:
   estuary: 
+  estuary-bin: 

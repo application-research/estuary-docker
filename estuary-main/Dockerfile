@@ -2,6 +2,7 @@ FROM golang:1.17
 RUN apt-get update && \
     apt-get install -y wget jq hwloc ocl-icd-opencl-dev git libhwloc-dev pkg-config make  && \
     apt-get install -y cargo
+WORKDIR /usr/estuary-bin
 WORKDIR /usr/src/estuary
 EXPOSE 3004
 
@@ -13,6 +14,7 @@ RUN git clone https://github.com/application-research/estuary . && \
     
 COPY start.sh /usr/src/estuary/start.sh
 RUN chmod +x /usr/src/estuary/start.sh
+RUN cp /usr/src/estuary/estuary-shuttle /usr/estuary-bin/ # for the shuttle shared volume
 
 #ENV ESTUARY_TOKEN=$(/usr/src/estuary/start.sh)
 #RUN echo Estuary Token is ${ESTUARY_TOKEN}
