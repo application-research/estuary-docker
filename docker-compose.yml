@@ -11,11 +11,11 @@ services:
       - ESTUARY_DATADIR=/usr/src/estuary/data/
       - ESTUARY_API_LISTEN=0.0.0.0:3004
       - FULLNODE_API_INFO=wss://api.chain.love
-      - ESTUARY_HOSTNAME=http://estuary-main:3004
+      - ESTUARY_HOSTNAME=${ESTUARY_HOSTNAME:-http://estuary-main:3004}
     ports:
       - "3004:3004"
       - "3004:3004/udp"
-  
+
   estuary-shuttle:
     build:
       context: ./estuary-shuttle
@@ -26,22 +26,24 @@ services:
       - "3005:3005"
       - "3005:3005/udp"
     environment:
+      # - ESTUARY_HOSTNAME=${ESTUARY_HOSTNAME:-http://estuary-main:3004}
       - ESTUARY_HOSTNAME=estuary-main:3004
     volumes:
       - estuary:/usr/estuary/private
-  
+
   estuary-www:
     build:
       context: ./estuary-www
       dockerfile: Dockerfile
     environment:
-      - ESTUARY_API=http://estuary-main:3004
+      # - ESTUARY_API=http://estuary-main:3004
+      - ESTUARY_API=${ESTUARY_HOSTNAME:-http://estuary-main:3004}
     ports:
-      - "4444:4444"
+      - "80:4444"
     depends_on:
       - estuary-main
     volumes:
       - estuary:/usr/estuary/private
-    
+
 volumes:
-  estuary: 
+  estuary:

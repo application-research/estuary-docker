@@ -32,6 +32,7 @@ sudo -- sh -c -e "echo '\n127.0.0.1   estuary-main' >> /etc/hosts";
 ```
 docker-compose up
 ```
+**Obs:** if you want to use a different branch than `dev` for `estuary-main`, do `docker-compose build --build-arg BRANCH=<your-branch-name>`
 
 3. Capture the AuthToken (Estuary Token) from the output:
 
